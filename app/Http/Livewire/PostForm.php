@@ -15,6 +15,10 @@ class PostForm extends Component
     public function storePost()
     {
         $this->validate();
+
+        auth()->user()->posts()->create(['body' => $this->body]);
+
+        $this->body = '';
     }
 
     public function render()
