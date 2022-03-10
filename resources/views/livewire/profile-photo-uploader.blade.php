@@ -1,16 +1,22 @@
 <div>
     <form action="">
-         <img src="{{ auth()->user()->profilePhoto() }}" alt="{{ auth()->user()->name }}"
-             class="w-12 h-12 rounded-full mb-3">
+        <img src="@if ($photo) {{ $photo->temporaryUrl() }} @else {{ auth()->user()->profilePhoto() }} @endif"
+             alt="{{ auth()->user()->name }}" class="w-12 h-12 rounded-full mb-3">
 
-        <label for="photo" class="w-full text-xs text-indigo-500 block text-center cursor-pointer">
-            Change
-        </label>
+        @if ($photo)
+            <button type="submit" class="w-full text-xs text-indigo-500 block text-center cursor-pointer">
+                Confirm
+            </button>
 
-        <input type="file" name="photo" id="photo" class="sr-only">
+            <button wire:click.prevent="$set('photo', null)" type="button" class="w-full text-xs text-indigo-500 block text-center cursor-pointer">
+                Cancel
+            </button>
+        @else
+            <label for="photo" class="w-full text-xs text-indigo-500 block text-center cursor-pointer">
+                Change
+            </label>
+        @endif
 
-        {{--<button class="w-full text-xs text-indigo-500 block text-center cursor-pointer">
-            Confirm
-        </button>--}}
+        <input wire:model="photo" type="file" name="photo" id="photo" class="sr-only">
     </form>
 </div>
