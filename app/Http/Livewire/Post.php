@@ -9,6 +9,18 @@ class Post extends Component
 {
     public $post;
 
+    public function getListeners()
+    {
+        return [
+            'echo:posts.' . $this->post->id . ',PostLiked' => 'refreshPost'
+        ];
+    }
+
+    public function refreshPost()
+    {
+        $this->post = $this->post->fresh();
+    }
+
     public function storeLike()
     {
         $like = $this->post->likes()->make();
