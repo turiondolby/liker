@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Events\PostLiked;
 
 class Post extends Component
 {
@@ -14,6 +15,8 @@ class Post extends Component
         $like->user()->associate(auth()->user());
 
         $like->save();
+
+        broadcast(new PostLiked($this->post));
     }
 
     public function render()
