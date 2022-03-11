@@ -11,8 +11,19 @@ class ProfilePhotoUploader extends Component
 
     public $photo;
 
+    protected $rules = [
+      'photo' => 'image|max:10'
+    ];
+
+    public function updatedPhoto()
+    {
+        $this->resetErrorBag();
+    }
+
     public function storePhoto()
     {
+        $this->validate();
+
         auth()->user()->update([
             'profile_photo' => $this->photo->store('profile-photos', 'public')
         ]);

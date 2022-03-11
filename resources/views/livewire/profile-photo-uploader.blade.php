@@ -1,5 +1,5 @@
 <div>
-    <form action="#" wire:submit.prevent="storePhoto">
+    <form action="#" wire:submit.prevent="storePhoto" class="flex flex-col justify-between items-center">
         <img src="@if ($photo) {{ $photo->temporaryUrl() }} @else {{ auth()->user()->profilePhoto() }} @endif"
              alt="{{ auth()->user()->name }}" class="w-12 h-12 rounded-full mb-3">
 
@@ -16,6 +16,10 @@
                 Change
             </label>
         @endif
+
+        @error('photo')
+            <span class="font-semibold text-red-500 text-xs mt-2">{{ $message }}</span>
+        @enderror
 
         <input wire:model="photo" type="file" name="photo" id="photo" class="sr-only">
     </form>
