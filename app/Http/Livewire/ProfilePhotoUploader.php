@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Events\ProfilePhotoUpdated;
 
 class ProfilePhotoUploader extends Component
 {
@@ -12,7 +13,7 @@ class ProfilePhotoUploader extends Component
     public $photo;
 
     protected $rules = [
-      'photo' => 'image|max:10'
+      'photo' => 'image|max:1024'
     ];
 
     public function updatedPhoto()
@@ -29,6 +30,8 @@ class ProfilePhotoUploader extends Component
         ]);
 
         $this->photo = null;
+
+        broadcast(new ProfilePhotoUpdated(auth()->user()));
     }
 
     public function render()
