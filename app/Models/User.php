@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile_photo'
     ];
 
     /**
@@ -48,7 +50,7 @@ class User extends Authenticatable
             return $this->defaultProfilePhotoUrl();
         }
 
-        return '';
+        return Storage::disk('local')->url($this->profile_photo);
     }
 
     public function defaultProfilePhotoUrl()

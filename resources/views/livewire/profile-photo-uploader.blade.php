@@ -1,5 +1,5 @@
 <div>
-    <form action="">
+    <form action="#" wire:submit.prevent="storePhoto">
         <img src="@if ($photo) {{ $photo->temporaryUrl() }} @else {{ auth()->user()->profilePhoto() }} @endif"
              alt="{{ auth()->user()->name }}" class="w-12 h-12 rounded-full mb-3">
 
